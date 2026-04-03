@@ -1,0 +1,1094 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ClearStart Oregon — Record Expungement, Step by Step</title>
+<meta name="description" content="Oregon expungement made simple. We walk you through every step — fingerprints, OSP form, petition, filing, and beyond. Starting at $49.">
+<script src="https://js.stripe.com/v3/"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --green:#1D9E75;--green-dk:#0F6E56;--green-lt:#E1F5EE;--green-bd:#5DCAA5;--green-tx:#085041;
+  --amber-lt:#FAEEDA;--amber-bd:#FAC775;--amber-tx:#633806;
+  --red-lt:#FAECE7;--red-bd:#F0997B;--red-tx:#4A1B0C;
+  --blue-lt:#E6F1FB;--blue-bd:#85B7EB;--blue-tx:#0C447C;
+  --tx:#1a1a1a;--tx2:#555;--tx3:#888;
+  --bg:#fff;--bg2:#f7f7f5;--bg3:#f0f0ee;
+  --bd:rgba(0,0,0,.11);--bd2:rgba(0,0,0,.2);
+  --r:10px;--r2:6px;
+}
+@media(prefers-color-scheme:dark){:root{
+  --tx:#f0f0f0;--tx2:#aaa;--tx3:#666;
+  --bg:#111;--bg2:#1c1c1c;--bg3:#242424;
+  --bd:rgba(255,255,255,.1);--bd2:rgba(255,255,255,.2);
+  --green-lt:#0a2e22;--green-tx:#5DCAA5;
+  --amber-lt:#2a1e08;--amber-tx:#FAC775;
+  --red-lt:#2a0e08;--red-tx:#F0997B;
+  --blue-lt:#0a1a2e;--blue-tx:#85B7EB;
+}}
+html{font-size:16px}
+body{font-family:-apple-system,'Helvetica Neue',Arial,sans-serif;color:var(--tx);background:var(--bg);line-height:1.5;min-height:100vh}
+
+/* HEADER */
+header{border-bottom:1px solid var(--bd);padding:0 1.25rem;height:54px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:var(--bg);z-index:200}
+.logo{display:flex;align-items:center;gap:8px;text-decoration:none;cursor:pointer}
+.logo-mark{width:30px;height:30px;background:var(--green);border-radius:7px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.logo-mark svg{width:16px;height:16px}
+.logo-name{font-size:15px;font-weight:700;color:var(--tx)}
+.logo-state{font-size:13px;color:var(--tx2)}
+.header-right{display:flex;align-items:center;gap:12px}
+.header-user{font-size:13px;color:var(--tx2)}
+.btn-sm{padding:6px 14px;font-size:13px;font-weight:600;border-radius:var(--r2);border:1.5px solid;cursor:pointer;font-family:inherit;transition:all .15s}
+.btn-sm-ghost{background:transparent;color:var(--tx2);border-color:var(--bd2)}
+.btn-sm-ghost:hover{background:var(--bg2)}
+.btn-sm-primary{background:var(--green);color:#fff;border-color:var(--green)}
+.btn-sm-primary:hover{background:var(--green-dk)}
+
+/* HERO */
+.hero{max-width:620px;margin:0 auto;padding:3rem 1.25rem 1.75rem;text-align:center}
+.hero-badge{display:inline-flex;align-items:center;gap:5px;background:var(--green-lt);color:var(--green-tx);font-size:12px;font-weight:600;padding:3px 11px;border-radius:20px;margin-bottom:1.1rem}
+.hero h1{font-size:clamp(1.75rem,5vw,2.4rem);font-weight:800;line-height:1.15;letter-spacing:-.025em;margin-bottom:.875rem}
+.hero h1 span{color:var(--green)}
+.hero p{font-size:1rem;color:var(--tx2);max-width:460px;margin:0 auto 1.75rem;line-height:1.65}
+.hero-cta{display:inline-flex;align-items:center;gap:7px;background:var(--green);color:#fff;font-size:15px;font-weight:700;padding:13px 26px;border-radius:var(--r);border:none;cursor:pointer;transition:background .15s;text-decoration:none}
+.hero-cta:hover{background:var(--green-dk)}
+.hero-meta{margin-top:.875rem;font-size:12px;color:var(--tx3);display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap}
+
+/* TRUST */
+.trust{border-top:1px solid var(--bd);border-bottom:1px solid var(--bd);padding:.875rem 1.25rem;display:flex;justify-content:center;gap:1.75rem;flex-wrap:wrap}
+.trust-item{font-size:13px;color:var(--tx2);display:flex;align-items:center;gap:5px}
+.trust-item strong{color:var(--tx);font-weight:600}
+
+/* MAIN LAYOUT */
+.app-shell{display:none;max-width:720px;margin:0 auto;padding:1.5rem 1.25rem 4rem}
+.app-shell.visible{display:block}
+
+/* PHASE TRACKER */
+.phase-nav{display:flex;gap:0;margin-bottom:2rem;border:1px solid var(--bd);border-radius:var(--r);overflow:hidden;background:var(--bg2)}
+.phase-item{flex:1;padding:.6rem .5rem;text-align:center;font-size:11px;font-weight:600;color:var(--tx3);border-right:1px solid var(--bd);cursor:default;transition:all .2s;line-height:1.3;position:relative}
+.phase-item:last-child{border-right:none}
+.phase-item.done{color:var(--green-tx);background:var(--green-lt)}
+.phase-item.done::after{content:'✓';display:block;font-size:14px;margin-top:1px}
+.phase-item.active{color:var(--green);background:var(--bg);font-weight:700;box-shadow:inset 0 -2px 0 var(--green)}
+.phase-item.active::after{content:'●';display:block;font-size:10px;margin-top:2px;color:var(--green)}
+.phase-item.locked{opacity:.45}
+.phase-item.locked::after{content:'○';display:block;font-size:10px;margin-top:2px}
+@media(max-width:520px){.phase-item{font-size:9px;padding:.5rem .25rem}}
+
+/* STEP HEADER */
+.step-tag{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--tx3);margin-bottom:.3rem}
+.step-title{font-size:1.3rem;font-weight:800;margin-bottom:.5rem;letter-spacing:-.015em}
+.step-desc{font-size:.9rem;color:var(--tx2);line-height:1.65;margin-bottom:1.5rem}
+
+/* CARDS / CHOICES */
+.choice{background:var(--bg);border:1px solid var(--bd);border-radius:var(--r);padding:.875rem 1rem;margin-bottom:.5rem;cursor:pointer;transition:border-color .15s,background .15s}
+.choice:hover{border-color:var(--bd2)}
+.choice.sel{border:2px solid var(--green);background:var(--green-lt)}
+.choice-row{display:flex;align-items:flex-start;gap:11px}
+.radio{width:17px;height:17px;border-radius:50%;border:1.5px solid var(--bd2);flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;transition:all .15s}
+.choice.sel .radio{background:var(--green);border-color:var(--green)}
+.choice.sel .radio::after{content:'';width:6px;height:6px;background:#fff;border-radius:50%}
+.choice-label{font-size:.9375rem;font-weight:600}
+.choice-sub{font-size:.8125rem;color:var(--tx2);margin-top:2px;line-height:1.4}
+
+/* FORM */
+.field{margin-bottom:.9rem}
+.field label{font-size:.8125rem;font-weight:600;color:var(--tx2);display:block;margin-bottom:4px}
+.field input,.field select,.field textarea{width:100%;padding:9px 11px;border:1px solid var(--bd);border-radius:var(--r2);font-size:.9375rem;background:var(--bg);color:var(--tx);font-family:inherit;transition:border-color .15s;-webkit-appearance:none}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--green);box-shadow:0 0 0 3px rgba(29,158,117,.1)}
+.field textarea{resize:vertical;min-height:76px}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:480px){.field-row{grid-template-columns:1fr}}
+.field-hint{font-size:.75rem;color:var(--tx3);margin-top:3px;line-height:1.4}
+
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;gap:6px;padding:10px 20px;border-radius:var(--r2);font-size:.9375rem;font-weight:700;cursor:pointer;border:1.5px solid;transition:all .15s;font-family:inherit}
+.btn-primary{background:var(--green);color:#fff;border-color:var(--green)}
+.btn-primary:hover{background:var(--green-dk);border-color:var(--green-dk)}
+.btn-primary:disabled{opacity:.55;cursor:not-allowed}
+.btn-ghost{background:transparent;color:var(--tx2);border-color:var(--bd)}
+.btn-ghost:hover{background:var(--bg2)}
+.btn-outline{background:transparent;color:var(--green);border-color:var(--green)}
+.btn-outline:hover{background:var(--green-lt)}
+.btn-row{display:flex;gap:8px;align-items:center;margin-top:1.5rem;flex-wrap:wrap}
+
+/* RESULT BOXES */
+.alert{border-radius:var(--r);padding:1rem 1.15rem;margin-bottom:1.15rem}
+.alert-ok{background:var(--green-lt);border:1px solid var(--green-bd)}
+.alert-wait{background:var(--amber-lt);border:1px solid var(--amber-bd)}
+.alert-no{background:var(--red-lt);border:1px solid var(--red-bd)}
+.alert-info{background:var(--blue-lt);border:1px solid var(--blue-bd)}
+.alert-title{font-size:.9375rem;font-weight:700;margin-bottom:4px}
+.alert-ok .alert-title{color:var(--green-tx)}
+.alert-wait .alert-title{color:var(--amber-tx)}
+.alert-no .alert-title{color:var(--red-tx)}
+.alert-info .alert-title{color:var(--blue-tx)}
+.alert-body{font-size:.875rem;color:var(--tx2);line-height:1.6}
+
+/* PRICING */
+.price-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:1.25rem}
+@media(max-width:440px){.price-grid{grid-template-columns:1fr}}
+.price-card{background:var(--bg);border:1.5px solid var(--bd);border-radius:var(--r);padding:1.15rem;cursor:pointer;transition:border-color .15s}
+.price-card.featured,.price-card.sel{border:2px solid var(--green)}
+.price-badge{display:inline-block;background:var(--green-lt);color:var(--green-tx);font-size:11px;font-weight:700;padding:2px 9px;border-radius:20px;margin-bottom:6px}
+.price-tier{font-size:.75rem;font-weight:700;color:var(--tx2);margin-bottom:2px;text-transform:uppercase;letter-spacing:.05em}
+.price-amt{font-size:2rem;font-weight:800;letter-spacing:-.03em;margin-bottom:1px}
+.price-per{font-size:.8125rem;color:var(--tx2);margin-bottom:10px}
+.price-feats{list-style:none}
+.price-feats li{font-size:.8125rem;color:var(--tx2);padding:3px 0;display:flex;gap:6px;align-items:flex-start}
+.ck{color:var(--green);font-weight:700;flex-shrink:0;margin-top:1px}
+
+/* PAYMENT */
+.pay-box{background:var(--bg);border:1px solid var(--bd);border-radius:var(--r);padding:1.15rem;margin-bottom:1.15rem}
+.order-sum{background:var(--bg2);border-radius:var(--r2);padding:.875rem;margin-bottom:1.15rem}
+.order-row{display:flex;justify-content:space-between;font-size:.875rem;padding:3px 0;color:var(--tx2)}
+.order-total{font-weight:700;color:var(--tx);border-top:1px solid var(--bd);margin-top:6px;padding-top:7px}
+#card-element{border:1px solid var(--bd);border-radius:var(--r2);padding:11px 12px;background:var(--bg);transition:border-color .15s;min-height:44px}
+#pay-error{color:#993C1D;font-size:.875rem;margin-top:.5rem;display:none}
+.secure-note{display:flex;align-items:center;gap:5px;font-size:.75rem;color:var(--tx3);margin-top:.65rem}
+
+/* PETITION */
+.petition-box{background:var(--bg2);border:1px solid var(--bd);border-radius:var(--r);padding:1.15rem;font-size:.78rem;font-family:'Courier New',monospace;line-height:1.85;white-space:pre-wrap;max-height:340px;overflow-y:auto;margin-bottom:1.15rem}
+.ai-load{display:flex;align-items:center;gap:8px;color:var(--tx2);font-size:.9rem;padding:2.5rem 0}
+.dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse 1.2s infinite}
+.dot:nth-child(2){animation-delay:.2s}.dot:nth-child(3){animation-delay:.4s}
+@keyframes pulse{0%,80%,100%{opacity:.2}40%{opacity:1}}
+
+/* CHECKPOINT CARDS */
+.checkpoint{background:var(--bg);border:1px solid var(--bd);border-radius:var(--r);overflow:hidden;margin-bottom:.75rem}
+.checkpoint-head{padding:1rem 1.15rem;display:flex;align-items:flex-start;gap:12px;cursor:pointer}
+.checkpoint-num{width:28px;height:28px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:.8125rem;font-weight:700;margin-top:1px}
+.checkpoint-num.done{background:var(--green-lt);color:var(--green-tx)}
+.checkpoint-num.active{background:var(--green);color:#fff}
+.checkpoint-num.todo{background:var(--bg2);color:var(--tx3);border:1px solid var(--bd)}
+.checkpoint-info{flex:1}
+.checkpoint-title{font-size:.9375rem;font-weight:700;margin-bottom:2px}
+.checkpoint-meta{font-size:.8125rem;color:var(--tx2)}
+.checkpoint-status{font-size:.75rem;font-weight:600;padding:2px 8px;border-radius:20px;flex-shrink:0;margin-top:3px}
+.status-done{background:var(--green-lt);color:var(--green-tx)}
+.status-active{background:var(--amber-lt);color:var(--amber-tx)}
+.status-todo{background:var(--bg3);color:var(--tx3)}
+.status-waiting{background:var(--blue-lt);color:var(--blue-tx)}
+.checkpoint-body{padding:0 1.15rem 1.15rem 3.35rem;border-top:1px solid var(--bd);display:none}
+.checkpoint-body.open{display:block;padding-top:1rem}
+
+/* TIMELINE */
+.timeline{margin:0 0 1.25rem}
+.tl-item{display:flex;gap:12px;padding:10px 0;border-bottom:1px solid var(--bd)}
+.tl-item:last-child{border-bottom:none}
+.tl-num{width:26px;height:26px;border-radius:50%;background:var(--green-lt);color:var(--green-tx);font-size:.75rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.tl-title{font-size:.9rem;font-weight:700;margin-bottom:2px}
+.tl-desc{font-size:.8125rem;color:var(--tx2);line-height:1.5}
+.tl-cost{display:inline-block;font-size:.75rem;font-weight:600;background:var(--amber-lt);color:var(--amber-tx);padding:1px 7px;border-radius:10px;margin-top:3px}
+.tl-time{display:inline-block;font-size:.75rem;font-weight:600;background:var(--blue-lt);color:var(--blue-tx);padding:1px 7px;border-radius:10px;margin-top:3px;margin-left:4px}
+
+/* WAITLIST */
+.waitlist-box{background:var(--bg2);border-radius:var(--r);padding:1.15rem;margin-top:.875rem}
+.waitlist-box h3{font-size:.9375rem;font-weight:700;margin-bottom:.3rem}
+.waitlist-box p{font-size:.8125rem;color:var(--tx2);margin-bottom:.75rem;line-height:1.5}
+.waitlist-row{display:flex;gap:8px}
+.waitlist-row input{flex:1}
+
+/* ACCOUNT / DASHBOARD */
+.dashboard-header{background:var(--green-lt);border:1px solid var(--green-bd);border-radius:var(--r);padding:1.15rem;margin-bottom:1.5rem}
+.dash-name{font-size:1.1rem;font-weight:800;margin-bottom:3px}
+.dash-sub{font-size:.875rem;color:var(--tx2)}
+.progress-ring-wrap{display:flex;align-items:center;gap:1rem;margin-top:.875rem}
+.progress-track{flex:1;height:6px;background:var(--bg3);border-radius:3px;overflow:hidden}
+.progress-fill{height:100%;background:var(--green);border-radius:3px;transition:width .5s ease}
+.progress-pct{font-size:.8125rem;font-weight:700;color:var(--green-tx);white-space:nowrap}
+
+/* AUTH MODAL */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:500;display:flex;align-items:center;justify-content:center;padding:1rem}
+.modal-box{background:var(--bg);border-radius:var(--r);padding:1.75rem;width:100%;max-width:400px;position:relative}
+.modal-close{position:absolute;top:1rem;right:1rem;background:none;border:none;font-size:1.25rem;cursor:pointer;color:var(--tx2);line-height:1}
+.modal-title{font-size:1.15rem;font-weight:800;margin-bottom:.4rem}
+.modal-sub{font-size:.875rem;color:var(--tx2);margin-bottom:1.25rem;line-height:1.5}
+.modal-toggle{font-size:.875rem;color:var(--tx2);text-align:center;margin-top:1rem}
+.modal-toggle a{color:var(--green);cursor:pointer;font-weight:600;text-decoration:none}
+.modal-error{background:var(--red-lt);color:var(--red-tx);font-size:.8125rem;padding:.5rem .75rem;border-radius:var(--r2);margin-bottom:.875rem;display:none}
+
+/* SUCCESS */
+.success-center{text-align:center;padding:.5rem 0 1.25rem}
+.success-mark{width:52px;height:52px;border-radius:50%;background:var(--green-lt);display:flex;align-items:center;justify-content:center;margin:0 auto 1rem}
+
+/* FOOTER */
+footer{border-top:1px solid var(--bd);padding:1.5rem;text-align:center;font-size:.8125rem;color:var(--tx3);line-height:1.7}
+footer a{color:var(--tx2);text-decoration:none}
+footer a:hover{color:var(--tx)}
+
+.hidden{display:none!important}
+.fade-in{animation:fadeIn .25s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+.divider{height:1px;background:var(--bd);margin:1.25rem 0}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo" onclick="showHero()">
+    <div class="logo-mark"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg></div>
+    <span class="logo-name">ClearStart</span><span class="logo-state">&nbsp;Oregon</span>
+  </div>
+  <div class="header-right">
+    <span class="header-user hidden" id="header-user"></span>
+    <button class="btn-sm btn-sm-ghost hidden" id="btn-logout" onclick="logout()">Sign out</button>
+    <button class="btn-sm btn-sm-ghost hidden" id="btn-login-header" onclick="openAuth('login')">Sign in</button>
+    <button class="btn-sm btn-sm-primary hidden" id="btn-signup-header" onclick="openAuth('signup')">Get started</button>
+  </div>
+</header>
+
+<!-- HERO -->
+<div id="hero-wrap">
+  <div class="hero">
+    <div class="hero-badge"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg>Oregon ORS 137.225</div>
+    <h1>Clear your record.<br><span>Start fresh.</span></h1>
+    <p>We walk you through every step of Oregon's expungement process — fingerprints, OSP background check, AI-drafted petition, filing, and beyond. No lawyer required.</p>
+    <button class="hero-cta" onclick="openAuth('signup')">Check if I qualify — free<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+    <div class="hero-meta"><span>✓ Full process walkthrough</span><span>✓ Fingerprint guidance</span><span>✓ AI petition drafting</span><span>✓ Starting at $49</span></div>
+  </div>
+  <div class="trust">
+    <div class="trust-item"><strong>ORS 137.225</strong> compliant</div>
+    <div class="trust-item">All <strong>36 Oregon counties</strong></div>
+    <div class="trust-item"><strong>No court filing fee</strong> since 2022</div>
+    <div class="trust-item">Fingerprint + OSP <strong>guidance included</strong></div>
+  </div>
+</div>
+
+<!-- APP SHELL -->
+<div class="app-shell" id="app-shell">
+
+  <!-- PHASE NAV -->
+  <div class="phase-nav" id="phase-nav">
+    <div class="phase-item locked" id="ph1" onclick="tryPhase(1)">Eligibility</div>
+    <div class="phase-item locked" id="ph2" onclick="tryPhase(2)">Fingerprints</div>
+    <div class="phase-item locked" id="ph3" onclick="tryPhase(3)">Petition</div>
+    <div class="phase-item locked" id="ph4" onclick="tryPhase(4)">File &amp; Serve</div>
+    <div class="phase-item locked" id="ph5" onclick="tryPhase(5)">DA Review</div>
+    <div class="phase-item locked" id="ph6" onclick="tryPhase(6)">Sealed ✓</div>
+  </div>
+
+  <!-- SCREENS (one active at a time) -->
+
+  <!-- S1: Eligibility intro -->
+  <div id="s1" class="hidden fade-in">
+    <div class="step-tag">Phase 1 — Eligibility Check</div>
+    <div class="step-title">Do you qualify for expungement?</div>
+    <div class="step-desc">Under Oregon ORS 137.225, many arrests and convictions can be set aside. Answer 3 questions — takes under 2 minutes, completely free.</div>
+    <div class="field"><label>What type of record?</label>
+      <div id="q-type">
+        <div class="choice" onclick="qsel('type','arrest',this)"><div class="choice-row"><div class="radio"></div><div><div class="choice-label">Arrest — no conviction</div><div class="choice-sub">Arrested but charges were dropped, dismissed, or you were acquitted</div></div></div></div>
+        <div class="choice" onclick="qsel('type','misd',this)"><div class="choice-row"><div class="radio"></div><div><div class="choice-label">Misdemeanor conviction</div><div class="choice-sub">Class A, B, or C misdemeanor</div></div></div></div>
+        <div class="choice" onclick="qsel('type','felony',this)"><div class="choice-row"><div class="radio"></div><div><div class="choice-label">Felony conviction</div><div class="choice-sub">Class C felony (some Class B may qualify after 20 years)</div></div></div></div>
+        <div class="choice" onclick="qsel('type','unsure',this)"><div class="choice-row"><div class="radio"></div><div><div class="choice-label">Not sure</div><div class="choice-sub">We'll help you identify it</div></div></div></div>
+      </div>
+    </div>
+    <div class="field"><label>How long ago was the conviction or arrest?</label>
+      <select id="q-age"><option value="">Select…</option><option value="under1">Less than 1 year ago</option><option value="1to3">1–3 years ago</option><option value="3to5">3–5 years ago</option><option value="over5">More than 5 years ago</option></select>
+    </div>
+    <div class="field"><label>Any new criminal convictions since this offense?</label>
+      <div id="q-new">
+        <div class="choice" onclick="qsel('new','no',this)"><div class="choice-row"><div class="radio"></div><div class="choice-label">No new convictions</div></div></div>
+        <div class="choice" onclick="qsel('new','yes',this)"><div class="choice-row"><div class="radio"></div><div class="choice-label">Yes, I have subsequent convictions</div></div></div>
+      </div>
+    </div>
+    <div class="btn-row"><button class="btn btn-primary" onclick="checkElig()">Check eligibility →</button></div>
+  </div>
+
+  <!-- S2: Eligibility result -->
+  <div id="s2" class="hidden fade-in">
+    <div class="step-tag">Phase 1 — Eligibility Result</div>
+    <div id="elig-result"></div>
+    <div id="elig-actions"></div>
+  </div>
+
+  <!-- S3: Pricing -->
+  <div id="s3" class="hidden fade-in">
+    <div class="step-tag">Phase 1 — Choose Your Plan</div>
+    <div class="step-title">How much help do you want?</div>
+    <div class="step-desc">Both plans walk you through every step from fingerprints to filing. Assisted has AI draft all your documents for you.</div>
+    <div class="price-grid">
+      <div class="price-card" id="pc-diy" onclick="setPlan('diy')">
+        <div class="price-tier">DIY</div><div class="price-amt">$49</div><div class="price-per">one-time</div>
+        <ul class="price-feats">
+          <li><span class="ck">✓</span>Full step-by-step guidance</li>
+          <li><span class="ck">✓</span>Fingerprint &amp; OSP instructions</li>
+          <li><span class="ck">✓</span>Blank petition template</li>
+          <li><span class="ck">✓</span>Filing checklists</li>
+          <li><span class="ck">✓</span>Progress tracker</li>
+          <li><span class="ck">✓</span>PDF downloads</li>
+        </ul>
+      </div>
+      <div class="price-card featured" id="pc-assisted" onclick="setPlan('assisted')">
+        <div><span class="price-badge">Most popular</span></div>
+        <div class="price-tier">Assisted</div><div class="price-amt">$149</div><div class="price-per">one-time</div>
+        <ul class="price-feats">
+          <li><span class="ck">✓</span>Everything in DIY</li>
+          <li><span class="ck">✓</span>AI drafts your petition</li>
+          <li><span class="ck">✓</span>AI drafts your affidavit</li>
+          <li><span class="ck">✓</span>Cover letter to clerk</li>
+          <li><span class="ck">✓</span>Email reminders at each step</li>
+          <li><span class="ck">✓</span>Email support</li>
+        </ul>
+      </div>
+    </div>
+    <div class="btn-row"><button class="btn btn-ghost" onclick="show('s2')">← Back</button><button class="btn btn-primary" onclick="show('s4')">Continue →</button></div>
+  </div>
+
+  <!-- S4: Account creation -->
+  <div id="s4" class="hidden fade-in">
+    <div class="step-tag">Phase 1 — Create Your Account</div>
+    <div class="step-title">Save your progress</div>
+    <div class="step-desc">Expungement takes weeks. Your account lets you pick up right where you left off at each checkpoint — fingerprints, filing, DA review, and beyond.</div>
+    <div class="field"><label>Full name</label><input type="text" id="reg-name" placeholder="Your name"></div>
+    <div class="field"><label>Email address</label><input type="email" id="reg-email" placeholder="you@email.com"></div>
+    <div class="field"><label>Password</label><input type="password" id="reg-pass" placeholder="At least 8 characters"></div>
+    <div id="reg-error" class="modal-error" style="display:none"></div>
+    <div class="btn-row"><button class="btn btn-ghost" onclick="show('s3')">← Back</button><button class="btn btn-primary" onclick="registerUser()">Create account &amp; continue →</button></div>
+    <div class="modal-toggle" style="margin-top:1rem">Already have an account? <a onclick="openAuth('login')">Sign in</a></div>
+  </div>
+
+  <!-- S5: Case info -->
+  <div id="s5" class="hidden fade-in">
+    <div class="step-tag">Phase 1 — Your Case Information</div>
+    <div class="step-title">Tell us about your case</div>
+    <div class="step-desc">We need this to complete your documents. Everything stays private and is never shared.</div>
+    <div class="field-row">
+      <div class="field"><label>Full legal name</label><input type="text" id="f-name" placeholder="As shown on court records"></div>
+      <div class="field"><label>Date of birth</label><input type="date" id="f-dob"></div>
+    </div>
+    <div class="field"><label>Current mailing address</label><input type="text" id="f-addr" placeholder="Street, city, state, zip"></div>
+    <div class="field-row">
+      <div class="field"><label>County of conviction</label>
+        <select id="f-county"><option value="">Select…</option><option>Baker</option><option>Benton</option><option>Clackamas</option><option>Clatsop</option><option>Columbia</option><option>Coos</option><option>Crook</option><option>Curry</option><option>Deschutes</option><option>Douglas</option><option>Gilliam</option><option>Grant</option><option>Harney</option><option>Hood River</option><option>Jackson</option><option>Jefferson</option><option>Josephine</option><option>Klamath</option><option>Lake</option><option>Lane</option><option>Lincoln</option><option>Linn</option><option>Malheur</option><option>Marion</option><option>Morrow</option><option>Multnomah</option><option>Polk</option><option>Sherman</option><option>Tillamook</option><option>Umatilla</option><option>Union</option><option>Wallowa</option><option>Wasco</option><option>Washington</option><option>Wheeler</option><option>Yamhill</option></select>
+      </div>
+      <div class="field"><label>Case number</label><input type="text" id="f-case" placeholder="Optional if unknown"></div>
+    </div>
+    <div class="field"><label>Charge(s) to expunge</label><textarea id="f-charges" placeholder="e.g. Theft in the Second Degree, ORS 164.045 — convicted 2019"></textarea></div>
+    <div class="field"><label>Arresting agency</label><input type="text" id="f-agency" placeholder="e.g. Portland Police Bureau"><div class="field-hint">Needed to request the police report, which speeds up your case.</div></div>
+    <div class="btn-row"><button class="btn btn-ghost" onclick="show('s4')">← Back</button><button class="btn btn-primary" onclick="show('s6')">Continue to payment →</button></div>
+  </div>
+
+  <!-- S6: Payment -->
+  <div id="s6" class="hidden fade-in">
+    <div class="step-tag">Phase 1 — Secure Payment</div>
+    <div class="step-title">Complete your order</div>
+    <div class="step-desc">One-time fee. After payment we'll walk you through every remaining step until your record is sealed.</div>
+    <div class="pay-box">
+      <div class="order-sum">
+        <div class="order-row"><span id="pay-item">Assisted Plan</span><span id="pay-price">$149.00</span></div>
+        <div class="order-row"><span style="color:var(--tx2)">Full expungement walkthrough</span></div>
+        <div class="order-row order-total"><span>Total due today</span><span id="pay-total">$149.00</span></div>
+      </div>
+      <div class="field"><label>Email</label><input type="email" id="pay-email" placeholder="you@email.com"></div>
+      <div class="field"><label>Card details</label><div id="card-element"></div><div id="pay-error"></div></div>
+      <div class="secure-note"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>Secured by Stripe. Card details never touch our servers.</div>
+    </div>
+    <div class="btn-row"><button class="btn btn-ghost" onclick="show('s5')">← Back</button><button class="btn btn-primary" id="pay-btn" onclick="submitPayment()">Pay &amp; start process →</button></div>
+    <p style="font-size:.75rem;color:var(--tx3);margin-top:.75rem">⚠ Wire up BACKEND_URL below before going live. See deploy guide.</p>
+  </div>
+
+  <!-- DASHBOARD: main checkpoint view -->
+  <div id="s-dashboard" class="hidden fade-in">
+    <div class="dashboard-header">
+      <div class="dash-name" id="dash-name">Welcome back</div>
+      <div class="dash-sub" id="dash-sub">Here's where you are in the process.</div>
+      <div class="progress-ring-wrap">
+        <div class="progress-track"><div class="progress-fill" id="dash-progress" style="width:0%"></div></div>
+        <div class="progress-pct" id="dash-pct">0% complete</div>
+      </div>
+    </div>
+
+    <!-- CHECKPOINT 1: Get fingerprinted -->
+    <div class="checkpoint" id="cp1">
+      <div class="checkpoint-head" onclick="toggleCp('cp1')">
+        <div class="checkpoint-num active" id="cpn1">1</div>
+        <div class="checkpoint-info">
+          <div class="checkpoint-title">Get fingerprinted</div>
+          <div class="checkpoint-meta">Visit a sheriff's office or Livescan provider · FBI FD-258 card required</div>
+        </div>
+        <span class="checkpoint-status status-active" id="cps1">In progress</span>
+      </div>
+      <div class="checkpoint-body open" id="cpb1">
+        <div class="alert alert-info" style="margin-bottom:1rem">
+          <div class="alert-title">What you need</div>
+          <div class="alert-body">You need a properly rolled set of fingerprints on the <strong>FBI standard blue applicant fingerprint card (FD-258)</strong>. This is required under ORS 137.225 before you can file your motion.</div>
+        </div>
+        <div class="timeline">
+          <div class="tl-item"><div class="tl-num">A</div><div><div class="tl-title">Find a fingerprinting location</div><div class="tl-desc">Your local sheriff's office or police department can fingerprint you. Many UPS stores, notary offices, and private Livescan providers also offer this service. Search "fingerprinting services near me" or call your county sheriff.</div></div></div>
+          <div class="tl-item"><div class="tl-num">B</div><div><div class="tl-title">Request the FD-258 blue card format</div><div class="tl-desc">Tell them it's for an Oregon expungement (set aside) under ORS 137.225. Ask specifically for the FBI standard FD-258 fingerprint card format. Some providers can print the card for you on-site.</div><span class="tl-cost">Typically $10–$25</span></div></div>
+          <div class="tl-item"><div class="tl-num">C</div><div><div class="tl-title">Bring valid photo ID</div><div class="tl-desc">Government-issued photo ID is required (driver's license, passport, or state ID). Also bring your Social Security Number.</div></div></div>
+          <div class="tl-item"><div class="tl-num">D</div><div><div class="tl-title">Keep the physical card — do not mail it yet</div><div class="tl-desc">You will mail the original fingerprint card together with your OSP form and $80 fee in the next step. Do not send it separately.</div></div></div>
+        </div>
+        <div class="field"><label>Have you been fingerprinted and have your FD-258 card?</label>
+          <div class="choice" onclick="qsel('fp','yes',this)" id="q-fp"><div class="choice-row"><div class="radio"></div><div class="choice-label">Yes — I have my fingerprint card</div></div></div>
+        </div>
+        <div class="btn-row"><button class="btn btn-primary" onclick="completeCp(1)" id="cp1-btn" disabled>Mark complete &amp; continue →</button></div>
+      </div>
+    </div>
+
+    <!-- CHECKPOINT 2: OSP form + $80 fee -->
+    <div class="checkpoint" id="cp2">
+      <div class="checkpoint-head" onclick="toggleCp('cp2')">
+        <div class="checkpoint-num todo" id="cpn2">2</div>
+        <div class="checkpoint-info">
+          <div class="checkpoint-title">Submit OSP background check form</div>
+          <div class="checkpoint-meta">Oregon State Police · FD-258 card + $80 certified check/money order</div>
+        </div>
+        <span class="checkpoint-status status-todo" id="cps2">Upcoming</span>
+      </div>
+      <div class="checkpoint-body" id="cpb2">
+        <div class="alert alert-wait" style="margin-bottom:1rem">
+          <div class="alert-title">Why this comes before filing</div>
+          <div class="alert-body">Oregon law requires the OSP to run a nationwide background check through the FBI before your motion is reviewed. The results go directly to the prosecuting attorney. You send the OSP package at the same time as — or just before — you file with the court.</div>
+        </div>
+        <div class="timeline">
+          <div class="tl-item"><div class="tl-num">A</div><div><div class="tl-title">Download the OSP Request for Set Aside form</div><div class="tl-desc">Get the official form from the Oregon State Police website or your county's DA office. Search "Oregon State Police Request for Set Aside Criminal Record Check form" or go to oregon.gov/osp.</div></div></div>
+          <div class="tl-item"><div class="tl-num">B</div><div><div class="tl-title">Fill out the OSP form completely</div><div class="tl-desc" id="osp-prefill">Fill in your full name, DOB, case number, county, and charge(s). Write "MOTION FOR SETTING ASIDE CONVICTION" in the purpose field.</div></div></div>
+          <div class="tl-item"><div class="tl-num">C</div><div><div class="tl-title">Get a certified check or money order for $80</div><div class="tl-desc">Made payable to <strong>Oregon State Police</strong>. Personal checks and cash are not accepted. Available at your bank or post office.</div><span class="tl-cost">$80 — certified check or money order only</span></div></div>
+          <div class="tl-item"><div class="tl-num">D</div><div><div class="tl-title">Mail the OSP package</div><div class="tl-desc">Mail all three together in one envelope: (1) completed OSP form, (2) original FD-258 fingerprint card, (3) $80 payment. Send to: <strong>Oregon State Police, Criminal Justice Information Services, PO Box 4395, Portland, OR 97208.</strong> Use certified mail so you have tracking.</div><span class="tl-time">~2–3 weeks for OSP to process</span></div></div>
+        </div>
+        <div class="field"><label>Have you mailed your OSP form, fingerprint card, and $80 fee?</label>
+          <div class="choice" onclick="qsel('osp','yes',this)" id="q-osp"><div class="choice-row"><div class="radio"></div><div class="choice-label">Yes — mailed via certified mail</div></div></div>
+        </div>
+        <div class="btn-row"><button class="btn btn-primary" onclick="completeCp(2)" id="cp2-btn" disabled>Mark complete &amp; continue →</button></div>
+      </div>
+    </div>
+
+    <!-- CHECKPOINT 3: Generate documents -->
+    <div class="checkpoint" id="cp3">
+      <div class="checkpoint-head" onclick="toggleCp('cp3')">
+        <div class="checkpoint-num todo" id="cpn3">3</div>
+        <div class="checkpoint-info">
+          <div class="checkpoint-title">Generate your petition &amp; affidavit</div>
+          <div class="checkpoint-meta">AI drafts your Motion to Set Aside + sworn Declaration</div>
+        </div>
+        <span class="checkpoint-status status-todo" id="cps3">Upcoming</span>
+      </div>
+      <div class="checkpoint-body" id="cpb3">
+        <div class="alert alert-info" style="margin-bottom:1rem">
+          <div class="alert-title">Two documents required</div>
+          <div class="alert-body">You need (1) a <strong>Motion to Set Aside</strong> and (2) a <strong>Declaration/Affidavit</strong> sworn under penalty of perjury. Both must be filed together. The affidavit must be signed in front of a notary or court clerk.</div>
+        </div>
+        <div id="petition-out" style="display:none"></div>
+        <div class="btn-row" id="petition-btns" style="display:none">
+          <button class="btn btn-outline" onclick="downloadPDF()">⬇ Download PDF</button>
+          <button class="btn btn-primary" onclick="completeCp(3)">Documents look good → Next step</button>
+        </div>
+        <div id="gen-start">
+          <button class="btn btn-primary" onclick="generateDocs()">Generate my documents →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- CHECKPOINT 4: Get affidavit notarized -->
+    <div class="checkpoint" id="cp4">
+      <div class="checkpoint-head" onclick="toggleCp('cp4')">
+        <div class="checkpoint-num todo" id="cpn4">4</div>
+        <div class="checkpoint-info">
+          <div class="checkpoint-title">Get your affidavit notarized</div>
+          <div class="checkpoint-meta">Sign in front of a notary public or circuit court clerk</div>
+        </div>
+        <span class="checkpoint-status status-todo" id="cps4">Upcoming</span>
+      </div>
+      <div class="checkpoint-body" id="cpb4">
+        <div class="alert alert-wait" style="margin-bottom:1rem">
+          <div class="alert-title">Do not skip this step</div>
+          <div class="alert-body">Your Declaration/Affidavit is a sworn statement under penalty of perjury. Oregon law requires it to be signed in front of a notary public or a circuit court deputy clerk. Unnotarized affidavits will be rejected.</div>
+        </div>
+        <div class="timeline">
+          <div class="tl-item"><div class="tl-num">A</div><div><div class="tl-title">Print your affidavit (do not sign yet)</div><div class="tl-desc">Print the Declaration document we generated. Do not sign it until you are in front of the notary — signatures before the notary witness are invalid.</div></div></div>
+          <div class="tl-item"><div class="tl-num">B</div><div><div class="tl-title">Find a notary</div><div class="tl-desc">Your circuit court clerk's office can notarize it for free. Banks, UPS stores, libraries, and many insurance offices also offer notary services. Search "notary near me."</div><span class="tl-cost">Free at court clerk · $5–$15 elsewhere</span></div></div>
+          <div class="tl-item"><div class="tl-num">C</div><div><div class="tl-title">Bring valid photo ID</div><div class="tl-desc">The notary must verify your identity. Bring your driver's license, passport, or state ID.</div></div></div>
+          <div class="tl-item"><div class="tl-num">D</div><div><div class="tl-title">Sign in front of the notary</div><div class="tl-desc">Sign and date the affidavit while the notary watches. The notary will then add their seal and signature.</div></div></div>
+        </div>
+        <div class="field"><label>Has your affidavit been notarized?</label>
+          <div class="choice" onclick="qsel('notary','yes',this)" id="q-notary"><div class="choice-row"><div class="radio"></div><div class="choice-label">Yes — my affidavit is signed and notarized</div></div></div>
+        </div>
+        <div class="btn-row"><button class="btn btn-primary" onclick="completeCp(4)" id="cp4-btn" disabled>Mark complete &amp; continue →</button></div>
+      </div>
+    </div>
+
+    <!-- CHECKPOINT 5: File with court + serve DA -->
+    <div class="checkpoint" id="cp5">
+      <div class="checkpoint-head" onclick="toggleCp('cp5')">
+        <div class="checkpoint-num todo" id="cpn5">5</div>
+        <div class="checkpoint-info">
+          <div class="checkpoint-title">File with the court &amp; serve the DA</div>
+          <div class="checkpoint-meta">No court filing fee · Make 2 copies before filing</div>
+        </div>
+        <span class="checkpoint-status status-todo" id="cps5">Upcoming</span>
+      </div>
+      <div class="checkpoint-body" id="cpb5">
+        <div class="alert alert-ok" style="margin-bottom:1rem">
+          <div class="alert-title">Good news — no court filing fee</div>
+          <div class="alert-body">Oregon Senate Bill 397 (effective January 1, 2022) eliminated the circuit court filing fee for expungements. You will not pay anything to the court. The only fee is the $80 OSP background check you already mailed.</div>
+        </div>
+        <div class="timeline">
+          <div class="tl-item"><div class="tl-num">A</div><div><div class="tl-title">Make 3 copies of your complete packet</div><div class="tl-desc">Your packet includes: Motion to Set Aside, notarized Declaration/Affidavit, and any supporting documents. Make 3 total copies: 1 original to file, 1 copy to serve the DA, 1 copy for your records.</div></div></div>
+          <div class="tl-item"><div class="tl-num">B</div><div><div class="tl-title" id="file-court-title">File the original at the circuit court clerk</div><div class="tl-desc" id="file-court-desc">Bring the original packet to the circuit court in the county where you were convicted. Tell the clerk you are filing a Motion to Set Aside under ORS 137.225. No fee required. They will stamp your copies and give you a hearing date or filing confirmation.</div></div></div>
+          <div class="tl-item"><div class="tl-num">C</div><div><div class="tl-title">Serve the District Attorney's office</div><div class="tl-desc">Deliver one copy of the full packet to the DA's office in the same county. Include: Motion, notarized Affidavit, a copy of the fingerprint card, and a copy of your $80 OSP payment receipt. Service can be in person or by certified mail.</div></div></div>
+          <div class="tl-item"><div class="tl-num">D</div><div><div class="tl-title">Optional: Include police report</div><div class="tl-desc">Including a copy of your police report from the original arrest can speed up the DA's review. Request it from the arresting agency (usually free or low cost).</div></div></div>
+        </div>
+        <div class="field"><label>Have you filed with the court and served the DA?</label>
+          <div class="choice" onclick="qsel('filed','yes',this)" id="q-filed"><div class="choice-row"><div class="radio"></div><div class="choice-label">Yes — filed and served</div></div></div>
+        </div>
+        <div class="btn-row"><button class="btn btn-primary" onclick="completeCp(5)" id="cp5-btn" disabled>Mark complete &amp; continue →</button></div>
+      </div>
+    </div>
+
+    <!-- CHECKPOINT 6: DA review period -->
+    <div class="checkpoint" id="cp6">
+      <div class="checkpoint-head" onclick="toggleCp('cp6')">
+        <div class="checkpoint-num todo" id="cpn6">6</div>
+        <div class="checkpoint-info">
+          <div class="checkpoint-title">DA review period — wait up to 120 days</div>
+          <div class="checkpoint-meta">District Attorney has 120 days to object · Most cases go uncontested</div>
+        </div>
+        <span class="checkpoint-status status-todo" id="cps6">Upcoming</span>
+      </div>
+      <div class="checkpoint-body" id="cpb6">
+        <div class="alert alert-info" style="margin-bottom:1rem">
+          <div class="alert-title">What happens during this period</div>
+          <div class="alert-body">The Oregon State Police sends the background check results to the DA. The DA then has up to 120 days to review your motion and either (1) not object — in which case the judge will likely grant your motion without a hearing, or (2) file an objection — in which case the court will schedule a hearing.</div>
+        </div>
+        <div class="timeline">
+          <div class="tl-item"><div class="tl-num">A</div><div><div class="tl-title">No action needed from you right now</div><div class="tl-desc">You do not need to contact the DA or court during this period. Simply wait for correspondence. If you gave the court your email, you may receive updates electronically.</div><span class="tl-time">Up to 120 days</span></div></div>
+          <div class="tl-item"><div class="tl-num">B</div><div><div class="tl-title">If the DA does NOT object</div><div class="tl-desc">The judge will review your motion and typically sign the Order to Set Aside without requiring you to appear in court. You'll receive a certified copy of the signed order by mail.</div></div></div>
+          <div class="tl-item"><div class="tl-num">C</div><div><div class="tl-title">If the DA objects</div><div class="tl-desc">The court will schedule a hearing. You'll be notified by mail of the date, time, and location. Bring your ID, a copy of your petition, and any supporting documents. Most hearings are brief. You may want to consult an attorney if there is an objection.</div></div></div>
+          <div class="tl-item"><div class="tl-num">D</div><div><div class="tl-title">Crime victims may also be notified</div><div class="tl-desc">Under Oregon law, crime victims have the right to be notified of the expungement motion and may object or request a hearing. This is rare but can extend the timeline.</div></div></div>
+        </div>
+        <div class="field"><label>What was the outcome?</label>
+          <div id="q-da-outcome">
+            <div class="choice" onclick="qsel('da','granted',this)"><div class="choice-row"><div class="radio"></div><div><div class="choice-label">Motion granted — no hearing needed</div><div class="choice-sub">The DA did not object and the judge signed the order</div></div></div></div>
+            <div class="choice" onclick="qsel('da','hearing',this)"><div class="choice-row"><div class="radio"></div><div><div class="choice-label">Hearing scheduled</div><div class="choice-sub">DA objected or court wants a hearing</div></div></div></div>
+            <div class="choice" onclick="qsel('da','waiting',this)"><div class="choice-row"><div class="radio"></div><div><div class="choice-label">Still waiting</div><div class="choice-sub">Within the 120-day window</div></div></div></div>
+          </div>
+        </div>
+        <div id="da-hearing-note" class="alert alert-wait hidden" style="margin-top:.75rem">
+          <div class="alert-title">Hearing scheduled — here's what to do</div>
+          <div class="alert-body">Attend the hearing at the date and time shown on your notice. Bring your photo ID, a copy of your petition, and any character letters or supporting documents. Be punctual and dress professionally. Most contested hearings are brief. If you're concerned, consider a consultation with an Oregon attorney — the Oregon State Bar Lawyer Referral Service can connect you at oregonstatebar.org.</div>
+        </div>
+        <div class="btn-row"><button class="btn btn-primary" onclick="completeCp(6)" id="cp6-btn" disabled>Mark complete &amp; continue →</button></div>
+      </div>
+    </div>
+
+    <!-- CHECKPOINT 7: Record sealed -->
+    <div class="checkpoint" id="cp7">
+      <div class="checkpoint-head" onclick="toggleCp('cp7')">
+        <div class="checkpoint-num todo" id="cpn7">7</div>
+        <div class="checkpoint-info">
+          <div class="checkpoint-title">Record sealed — you're done</div>
+          <div class="checkpoint-meta">LEDS updated · FBI record cleared · You can legally say it never happened</div>
+        </div>
+        <span class="checkpoint-status status-todo" id="cps7">Final step</span>
+      </div>
+      <div class="checkpoint-body" id="cpb7">
+        <div class="alert alert-ok" style="margin-bottom:1rem">
+          <div class="alert-title">What "set aside" means for you</div>
+          <div class="alert-body">Once the judge signs the Order, your conviction or arrest is legally deemed to have never occurred under Oregon law (ORS 137.255). You can legally answer "no" on job applications, rental applications, and most other forms that ask about prior convictions.</div>
+        </div>
+        <div class="timeline">
+          <div class="tl-item"><div class="tl-num">A</div><div><div class="tl-title">Keep your certified copy of the Order</div><div class="tl-desc">The court will send you a certified copy of the signed Order to Set Aside. Store it safely — this is your legal proof of expungement.</div></div></div>
+          <div class="tl-item"><div class="tl-num">B</div><div><div class="tl-title">LEDS is automatically notified</div><div class="tl-desc">The circuit court clerk sends a certified copy to the Oregon Law Enforcement Data System (LEDS). Oregon State Police then updates their database. This takes approximately 30–90 days to fully propagate.</div><span class="tl-time">30–90 days</span></div></div>
+          <div class="tl-item"><div class="tl-num">C</div><div><div class="tl-title">FBI record updated</div><div class="tl-desc">The Oregon State Police notifies the FBI to update or remove your record from the national criminal database. Allow up to 90 days for full propagation across all databases.</div></div></div>
+          <div class="tl-item"><div class="tl-num">D</div><div><div class="tl-title">Private background check databases</div><div class="tl-desc">Some private background check companies (e.g. Checkr, Sterling) maintain their own databases and may not update immediately. If a private check returns old information, you can dispute it directly with the company and provide your certified Order as proof.</div></div></div>
+          <div class="tl-item"><div class="tl-num">E</div><div><div class="tl-title">Federal benefits and firearms</div><div class="tl-desc">Oregon expungement restores most civil rights including, per a 2025 Oregon Court of Appeals ruling (Mohiadeen v. Washington County), the right to possess firearms. Federal benefits eligibility is governed by federal law and may differ — consult an attorney for federal employment or security clearances.</div></div></div>
+        </div>
+        <div class="btn-row"><button class="btn btn-primary" onclick="finishProcess()">🎉 Mark as complete</button></div>
+      </div>
+    </div>
+
+  </div><!-- /s-dashboard -->
+
+  <!-- COMPLETION SCREEN -->
+  <div id="s-complete" class="hidden fade-in">
+    <div class="success-center">
+      <div class="success-mark"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1D9E75" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+      <div class="step-title">Your record is sealed. Congratulations.</div>
+      <p style="color:var(--tx2);font-size:.9375rem;margin-top:.5rem;line-height:1.65">Under Oregon law, this conviction or arrest is now deemed to have never occurred. You can move forward with a clean record.</p>
+    </div>
+    <div class="alert alert-ok" style="margin-top:1.25rem">
+      <div class="alert-title">Remember</div>
+      <div class="alert-body">Keep your certified Order to Set Aside in a safe place. If a private background check company still shows the old record 90 days after your order was signed, you can dispute it by providing a copy of your order directly to the company.</div>
+    </div>
+  </div>
+
+</div><!-- /app-shell -->
+
+<!-- AUTH MODAL -->
+<div class="modal-overlay hidden" id="auth-modal" onclick="modalClickOutside(event)">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeAuth()">×</button>
+    <div class="modal-title" id="auth-title">Create your account</div>
+    <div class="modal-sub" id="auth-sub">Save your progress and pick up right where you left off.</div>
+    <div class="modal-error" id="auth-error"></div>
+    <div class="field"><label>Email</label><input type="email" id="auth-email" placeholder="you@email.com"></div>
+    <div class="field" id="auth-name-field"><label>Full name</label><input type="text" id="auth-name" placeholder="Your name"></div>
+    <div class="field"><label>Password</label><input type="password" id="auth-pass" placeholder="Password"></div>
+    <button class="btn btn-primary" style="width:100%;justify-content:center" onclick="authSubmit()" id="auth-submit-btn">Create account</button>
+    <div class="modal-toggle" id="auth-toggle">Already have an account? <a onclick="switchAuthMode()">Sign in</a></div>
+  </div>
+</div>
+
+<footer>
+  <p>ClearStart Oregon is a document preparation service, not a law firm.<br>We do not provide legal advice. For complex cases, consult a licensed Oregon attorney.<br>
+  <a href="#">Terms of Service</a> · <a href="#">Privacy Policy</a> · <a href="mailto:hello@clearstartoregon.com">Contact</a></p>
+</footer>
+
+<script>
+// ─── CONFIG ──────────────────────────────────────────
+const STRIPE_PK = 'pk_live_51SeicCCh4nWTT7YAAYnOB4qmuDmpb5NVSr38KYwKX6D8LVWhKVWd37iBFkLTZvkCm9qtkBty6I1HoFZijyapnKVT00aN3ycfS2';
+const BACKEND_URL = 'https://YOUR-VERCEL-URL.vercel.app/api/create-payment-intent'; // ← update this
+
+// ─── STATE ───────────────────────────────────────────
+const S = {
+  type:null, age:null, new:null, plan:'assisted',
+  petition:'', email:'', user:null,
+  fp:null, osp:null, notary:null, filed:null, da:null,
+  cpDone: [false,false,false,false,false,false,false], // checkpoints 1-7
+  paid: false
+};
+let stripe, cardElement, authMode = 'signup';
+
+// ─── STORAGE HELPERS (simulates account persistence) ─
+function saveState(){ try{ localStorage.setItem('cs_state', JSON.stringify(S)); }catch(e){} }
+function loadState(){
+  try{
+    const d = localStorage.getItem('cs_state');
+    if(d){ Object.assign(S, JSON.parse(d)); }
+  }catch(e){}
+}
+
+// ─── INIT ────────────────────────────────────────────
+window.addEventListener('DOMContentLoaded', ()=>{
+  loadState();
+  setPlan('assisted');
+  if(S.user){
+    showLoggedIn();
+    if(S.paid){ openDashboard(); }
+  } else {
+    showLoggedOut();
+  }
+});
+
+function showLoggedIn(){
+  document.getElementById('header-user').textContent = S.user?.name || S.user?.email || '';
+  document.getElementById('header-user').classList.remove('hidden');
+  document.getElementById('btn-logout').classList.remove('hidden');
+  document.getElementById('btn-login-header').classList.add('hidden');
+  document.getElementById('btn-signup-header').classList.add('hidden');
+}
+function showLoggedOut(){
+  document.getElementById('header-user').classList.add('hidden');
+  document.getElementById('btn-logout').classList.add('hidden');
+  document.getElementById('btn-login-header').classList.remove('hidden');
+  document.getElementById('btn-signup-header').classList.remove('hidden');
+}
+function logout(){
+  S.user = null; saveState();
+  showLoggedOut();
+  showHero();
+}
+
+// ─── NAVIGATION ──────────────────────────────────────
+function show(id){
+  document.querySelectorAll('.app-shell > div').forEach(d=>{d.classList.add('hidden');d.classList.remove('fade-in');});
+  const t = document.getElementById(id);
+  if(t){ t.classList.remove('hidden'); setTimeout(()=>t.classList.add('fade-in'),10); }
+  window.scrollTo(0,0);
+}
+function showHero(){
+  document.getElementById('hero-wrap').style.display='';
+  document.getElementById('app-shell').classList.remove('visible');
+}
+function startApp(){
+  document.getElementById('hero-wrap').style.display='none';
+  document.getElementById('app-shell').classList.add('visible');
+}
+function tryPhase(n){
+  // Allow nav to completed phases
+  if(n===1){ show('s1'); }
+  else if(n===2 && S.paid){ openDashboard(); }
+  else if(n>=3 && S.cpDone[0] && S.cpDone[1]){ openDashboard(); }
+}
+
+// ─── PHASE NAV UPDATE ────────────────────────────────
+function updatePhaseNav(){
+  const done = S.cpDone;
+  const paid = S.paid;
+  // Phase 1: eligibility/setup
+  setPhase(1, paid ? 'done' : 'active');
+  // Phase 2: fingerprints (cp1)
+  setPhase(2, !paid?'locked': done[0]?'done':'active');
+  // Phase 3: petition (cp2+cp3+cp4)
+  setPhase(3, !done[0]?'locked': done[3]?'done':'active');
+  // Phase 4: file & serve (cp5)
+  setPhase(4, !done[3]?'locked': done[4]?'done':'active');
+  // Phase 5: DA review (cp6)
+  setPhase(5, !done[4]?'locked': done[5]?'done':'active');
+  // Phase 6: sealed
+  setPhase(6, done[6]?'done': !done[5]?'locked':'active');
+}
+function setPhase(n, state){
+  const el = document.getElementById('ph'+n);
+  el.className = 'phase-item ' + state;
+}
+
+// ─── DASHBOARD ───────────────────────────────────────
+function openDashboard(){
+  startApp();
+  show('s-dashboard');
+  updatePhaseNav();
+  updateDashboard();
+  prefillOSPForm();
+  prefillCourtInfo();
+}
+function updateDashboard(){
+  const u = S.user;
+  document.getElementById('dash-name').textContent = u ? 'Welcome back, ' + (u.name||'').split(' ')[0] : 'Your progress';
+  const done = S.cpDone.filter(Boolean).length;
+  const total = 7;
+  const pct = Math.round((done/total)*100);
+  document.getElementById('dash-progress').style.width = pct+'%';
+  document.getElementById('dash-pct').textContent = pct+'% complete';
+  document.getElementById('dash-sub').textContent = done === total
+    ? 'Your record has been sealed. Congratulations!'
+    : `Step ${done+1} of ${total} — keep going, you're making progress.`;
+  // Update checkpoint statuses
+  for(let i=1;i<=7;i++){
+    const numEl = document.getElementById('cpn'+i);
+    const statEl = document.getElementById('cps'+i);
+    const bodyEl = document.getElementById('cpb'+i);
+    if(S.cpDone[i-1]){
+      numEl.className='checkpoint-num done'; numEl.textContent='✓';
+      statEl.className='checkpoint-status status-done'; statEl.textContent='Complete';
+      bodyEl.classList.remove('open');
+    } else {
+      const isNext = !S.cpDone[i-2] && i===1 || (i>1 && S.cpDone[i-2]);
+      if(isNext){
+        numEl.className='checkpoint-num active'; numEl.textContent=i;
+        statEl.className='checkpoint-status status-active'; statEl.textContent='In progress';
+        bodyEl.classList.add('open');
+      } else if(i===6 && S.cpDone[4] && S.da==='waiting'){
+        numEl.className='checkpoint-num active'; numEl.textContent=i;
+        statEl.className='checkpoint-status status-waiting'; statEl.textContent='Waiting';
+        bodyEl.classList.add('open');
+      } else {
+        numEl.className='checkpoint-num todo'; numEl.textContent=i;
+        statEl.className='checkpoint-status status-todo'; statEl.textContent='Upcoming';
+      }
+    }
+  }
+}
+function toggleCp(id){
+  const body = document.getElementById('cpb'+id.replace('cp',''));
+  if(!body) return;
+  body.classList.toggle('open');
+}
+function prefillOSPForm(){
+  const name = document.getElementById('f-name')?.value || '';
+  const dob = document.getElementById('f-dob')?.value || '';
+  const county = document.getElementById('f-county')?.value || '';
+  const casenum = document.getElementById('f-case')?.value || '';
+  const charges = document.getElementById('f-charges')?.value || '';
+  const el = document.getElementById('osp-prefill');
+  if(el && name){
+    el.innerHTML = `Fill in your details: Name: <strong>${name}</strong>, DOB: <strong>${dob||'your DOB'}</strong>, Case #: <strong>${casenum||'your case number'}</strong>, County: <strong>${county}</strong>, Charge: <strong>${charges||'your charge(s)'}</strong>. Write "MOTION FOR SETTING ASIDE CONVICTION" in the purpose field.`;
+  }
+}
+function prefillCourtInfo(){
+  const county = document.getElementById('f-county')?.value || '';
+  const ct = document.getElementById('file-court-title');
+  const cd = document.getElementById('file-court-desc');
+  if(ct && county){
+    ct.textContent = `File originals at ${county} County Circuit Court`;
+    cd.textContent = `Bring the original packet to the ${county} County Circuit Court clerk's office. Tell the clerk you are filing a Motion to Set Aside under ORS 137.225. There is no filing fee. The clerk will stamp your copies.`;
+  }
+}
+
+// ─── CHECKPOINT COMPLETION ───────────────────────────
+function completeCp(n){
+  S.cpDone[n-1] = true;
+  saveState();
+  updateDashboard();
+  updatePhaseNav();
+  if(n===7){ show('s-complete'); return; }
+  // Open next checkpoint
+  const nextBody = document.getElementById('cpb'+(n+1));
+  if(nextBody) nextBody.classList.add('open');
+  window.scrollTo(0,0);
+}
+
+// ─── ELIGIBILITY ─────────────────────────────────────
+function qsel(key, val, el){
+  S[key]=val;
+  const map={'type':'q-type','new':'q-new','fp':'cp1','osp':'cp2','notary':'cp4','filed':'cp5','da':'q-da-outcome'};
+  const gid = map[key] || 'q-'+key;
+  const grp = el.closest('[id]');
+  if(grp){ grp.querySelectorAll('.choice').forEach(c=>c.classList.remove('sel')); }
+  el.classList.add('sel');
+  // Enable buttons
+  const btns={'fp':'cp1-btn','osp':'cp2-btn','notary':'cp4-btn','filed':'cp5-btn'};
+  if(btns[key]){ const b=document.getElementById(btns[key]); if(b) b.disabled=false; }
+  if(key==='da'){
+    const note=document.getElementById('da-hearing-note');
+    note.classList.toggle('hidden', val!=='hearing');
+    document.getElementById('cp6-btn').disabled = val==='waiting';
+  }
+}
+function checkElig(){
+  const age=document.getElementById('q-age').value;
+  if(!S.type||!age||!S.new){alert('Please answer all three questions.');return;}
+  S.age=age;
+  let cls,title,body,actions;
+  if(S.new==='yes'&&S.type==='felony'){
+    cls='alert-no'; title='You likely do not qualify';
+    body='Felony convictions with subsequent offenses are generally ineligible under ORS 137.225. If you have been convicted of another offense since the original conviction, Oregon law typically bars expungement. You may want to consult Oregon Legal Aid (oregonlawhelp.org) or the Oregon State Bar Lawyer Referral Service.';
+    actions=waitlistHtml();
+  } else if((age==='under1'&&S.type!=='arrest')||(age==='1to3'&&S.type==='felony')||(age==='3to5'&&S.type==='felony')){
+    cls='alert-wait'; title='Not yet eligible — but mark your calendar';
+    body=S.type==='felony'
+      ? 'Class C felonies require a 5-year waiting period from the date of discharge or completion of probation. Misdemeanors require 3 years. Based on your timeline, you\'re not quite there yet. Enter your email and we\'ll remind you.'
+      : 'Misdemeanors require a 3-year waiting period from the date of discharge. Enter your email below and we\'ll send you a reminder when you become eligible.';
+    actions=waitlistHtml();
+  } else {
+    cls='alert-ok';
+    title = S.type==='arrest' ? 'You qualify — no waiting period required' : 'You likely qualify for expungement';
+    body = S.type==='arrest'
+      ? 'Arrests without a conviction are eligible for expungement under ORS 137.225 with no waiting period. The $80 OSP background check fee is still required, but there is no court filing fee and no waiting.'
+      : 'Based on your answers, your record appears to meet Oregon\'s eligibility criteria. Oregon eliminated the court filing fee in 2022, so your only out-of-pocket cost is the $80 OSP fee plus our service fee.';
+    actions=`<div class="btn-row"><button class="btn btn-ghost" onclick="show('s1')">← Back</button><button class="btn btn-primary" onclick="show('s3')">See plans &amp; pricing →</button></div>`;
+  }
+  document.getElementById('elig-result').innerHTML=`<div class="alert ${cls}"><div class="alert-title">${title}</div><div class="alert-body">${body}</div></div>`;
+  document.getElementById('elig-actions').innerHTML=actions;
+  show('s2');
+}
+function waitlistHtml(){
+  return`<div class="waitlist-box"><h3>Get notified when you qualify</h3><p>Enter your email — we'll reach out when your waiting period passes. No spam, one email only.</p><div class="waitlist-row"><div class="field" style="margin:0;flex:1"><input type="email" id="wl-email" placeholder="you@email.com"></div><button class="btn btn-primary" style="flex-shrink:0" onclick="joinWL()">Notify me</button></div><div id="wl-ok" style="font-size:.8125rem;color:var(--green-tx);margin-top:8px;display:none">✓ Got it — we'll be in touch.</div></div><div class="btn-row" style="margin-top:.875rem"><button class="btn btn-ghost" onclick="show('s1')">← Try different answers</button></div>`;
+}
+function joinWL(){
+  const e=document.getElementById('wl-email');
+  if(!e||!e.value||!e.value.includes('@')){alert('Please enter a valid email.');return;}
+  document.getElementById('wl-ok').style.display='block';
+  e.disabled=true; document.querySelector('.waitlist-row button').disabled=true;
+  // TODO: send to your email list backend
+}
+
+// ─── PRICING ─────────────────────────────────────────
+function setPlan(plan){
+  S.plan=plan;
+  ['diy','assisted'].forEach(p=>{const c=document.getElementById('pc-'+p);if(c)c.classList.remove('sel','featured');});
+  const pc=document.getElementById('pc-'+plan); if(pc) pc.classList.add('sel','featured');
+  const price=plan==='diy'?'49.00':'149.00';
+  const pi=document.getElementById('pay-item'); if(pi) pi.textContent=plan==='diy'?'DIY Plan':'Assisted Plan';
+  const pp=document.getElementById('pay-price'); if(pp) pp.textContent='$'+price;
+  const pt=document.getElementById('pay-total'); if(pt) pt.textContent='$'+price;
+}
+
+// ─── AUTH ────────────────────────────────────────────
+function openAuth(mode){
+  authMode=mode;
+  document.getElementById('auth-modal').classList.remove('hidden');
+  document.getElementById('auth-title').textContent = mode==='signup' ? 'Create your account' : 'Welcome back';
+  document.getElementById('auth-sub').textContent = mode==='signup' ? 'Save your progress and pick up right where you left off.' : 'Sign in to continue your expungement.';
+  document.getElementById('auth-name-field').style.display = mode==='signup' ? '' : 'none';
+  document.getElementById('auth-submit-btn').textContent = mode==='signup' ? 'Create account' : 'Sign in';
+  document.getElementById('auth-toggle').innerHTML = mode==='signup'
+    ? 'Already have an account? <a onclick="switchAuthMode()">Sign in</a>'
+    : "Don't have an account? <a onclick=\"switchAuthMode()\">Sign up</a>";
+  document.getElementById('auth-error').style.display='none';
+}
+function closeAuth(){ document.getElementById('auth-modal').classList.add('hidden'); }
+function modalClickOutside(e){ if(e.target.id==='auth-modal') closeAuth(); }
+function switchAuthMode(){ openAuth(authMode==='signup'?'login':'signup'); }
+function authSubmit(){
+  const email=document.getElementById('auth-email').value;
+  const pass=document.getElementById('auth-pass').value;
+  const name=authMode==='signup'?document.getElementById('auth-name').value:'';
+  const errEl=document.getElementById('auth-error');
+  if(!email||!email.includes('@')){errEl.textContent='Please enter a valid email.';errEl.style.display='block';return;}
+  if(pass.length<6){errEl.textContent='Password must be at least 6 characters.';errEl.style.display='block';return;}
+  // Simulate auth — replace with real auth (Supabase, Firebase, etc.)
+  S.user={email, name: name||email.split('@')[0]};
+  saveState(); closeAuth(); showLoggedIn();
+  // Continue flow
+  if(S.paid){ openDashboard(); } else { startApp(); show('s1'); }
+}
+function registerUser(){
+  const name=document.getElementById('reg-name').value;
+  const email=document.getElementById('reg-email').value;
+  const pass=document.getElementById('reg-pass').value;
+  const errEl=document.getElementById('reg-error');
+  if(!name){errEl.textContent='Please enter your name.';errEl.style.display='block';return;}
+  if(!email||!email.includes('@')){errEl.textContent='Please enter a valid email.';errEl.style.display='block';return;}
+  if(pass.length<6){errEl.textContent='Password must be at least 6 characters.';errEl.style.display='block';return;}
+  S.user={email,name}; saveState(); showLoggedIn();
+  show('s5');
+}
+
+// ─── STRIPE ──────────────────────────────────────────
+function initStripe(){
+  if(stripe) return;
+  stripe=Stripe(STRIPE_PK);
+  const elements=stripe.elements();
+  cardElement=elements.create('card',{style:{base:{fontSize:'15px',color:'#1a1a1a',fontFamily:'-apple-system,Helvetica,sans-serif','::placeholder':{color:'#aaa'}},invalid:{color:'#993C1D'}}});
+  cardElement.mount('#card-element');
+  cardElement.on('change',e=>{const err=document.getElementById('pay-error');if(e.error){err.textContent=e.error.message;err.style.display='block';}else{err.style.display='none';}});
+}
+document.getElementById('s6').addEventListener('transitionend',initStripe);
+window.addEventListener('load',()=>{ if(document.getElementById('s6')&&!document.getElementById('s6').classList.contains('hidden')) initStripe(); });
+// init stripe when step 6 becomes visible
+const s6obs=new MutationObserver(()=>{ if(!document.getElementById('s6').classList.contains('hidden')) initStripe(); });
+s6obs.observe(document.getElementById('s6'),{attributes:true,attributeFilter:['class']});
+
+async function submitPayment(){
+  const email=document.getElementById('pay-email').value;
+  if(!email||!email.includes('@')){alert('Please enter your email.');return;}
+  if(!stripe||!cardElement){initStripe();alert('Payment loading. Please try again in a moment.');return;}
+  S.email=email; const btn=document.getElementById('pay-btn');
+  const errEl=document.getElementById('pay-error');
+  btn.disabled=true;btn.textContent='Processing…';errEl.style.display='none';
+  const amount=S.plan==='diy'?4900:14900;
+  try{
+    const resp=await fetch(BACKEND_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({amount,email,plan:S.plan})});
+    const {clientSecret,error:be}=await resp.json();
+    if(be) throw new Error(be);
+    const {paymentIntent,error}=await stripe.confirmCardPayment(clientSecret,{payment_method:{card:cardElement,billing_details:{email}}});
+    if(error) throw new Error(error.message);
+    if(paymentIntent.status!=='succeeded') throw new Error('Payment did not complete.');
+    S.paid=true; saveState();
+    openDashboard();
+  }catch(e){
+    errEl.textContent=e.message; errEl.style.display='block';
+    btn.disabled=false; btn.textContent='Pay & start process →';
+  }
+}
+
+// ─── DOCUMENT GENERATION ─────────────────────────────
+async function generateDocs(){
+  const out=document.getElementById('petition-out');
+  const btns=document.getElementById('petition-btns');
+  const start=document.getElementById('gen-start');
+  out.style.display='block'; start.style.display='none'; btns.style.display='none';
+  out.innerHTML=`<div class="ai-load"><div class="dot"></div><div class="dot"></div><div class="dot"></div><span style="margin-left:8px">AI drafting your Motion and Declaration…</span></div>`;
+
+  const name=document.getElementById('f-name')?.value||'Petitioner';
+  const dob=document.getElementById('f-dob')?.value||'N/A';
+  const addr=document.getElementById('f-addr')?.value||'N/A';
+  const county=document.getElementById('f-county')?.value||'Multnomah';
+  const casenum=document.getElementById('f-case')?.value||'Unknown';
+  const charges=document.getElementById('f-charges')?.value||'As described in court records';
+
+  if(S.plan==='diy'){
+    const text=`IN THE CIRCUIT COURT OF THE STATE OF OREGON
+FOR ${county.toUpperCase()} COUNTY
+
+In the Matter of the Application         )
+of ${name.toUpperCase()},                 )   Case No: ${casenum}
+                              Petitioner. )   MOTION TO SET ASIDE
+                                          )   CONVICTION / ARREST
+                                          )   (ORS 137.225)
+
+MOTION TO SET ASIDE CONVICTION
+
+Petitioner ${name}, born ${dob}, residing at ${addr}, moves this Court pursuant to ORS 137.225 to set aside the following:
+
+  Charge(s): ${charges}
+  Court: ${county} County Circuit Court
+
+GROUNDS FOR RELIEF
+
+1. The required waiting period under ORS 137.225 has elapsed.
+2. Petitioner has not been convicted of any other offense during the waiting period, other than motor vehicle violations not constituting a crime.
+3. Setting aside this conviction is in the interests of justice.
+
+WHEREFORE, Petitioner requests an Order setting aside the above conviction(s) and sealing the record.
+
+_______________________________
+${name}, Petitioner Pro Se
+Date: ______________________
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+DECLARATION IN SUPPORT OF MOTION TO SET ASIDE
+(ORS 137.225)
+
+I, ${name}, declare under penalty of perjury:
+
+1. I am the Petitioner in this matter.
+2. I was convicted of / arrested for: ${charges}
+3. The required waiting period has elapsed since discharge.
+4. I have not been convicted of any other offense since, other than motor vehicle violations.
+5. I have paid all fines and completed all terms of my sentence.
+6. I believe setting aside this conviction is in the interests of justice.
+
+I declare that the above is true to the best of my knowledge.
+
+_______________________________         ________________
+${name}                                  Date
+
+Subscribed and sworn before me this ___ day of _________, 20___
+
+_______________________________
+Notary Public / Deputy Court Clerk
+My commission expires: __________`;
+    S.petition=text;
+    out.innerHTML=`<div class="petition-box">${text}</div>`;
+    btns.style.display='flex';
+    return;
+  }
+
+  try{
+    const resp=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1200,messages:[{role:'user',content:`You are a legal document specialist in Oregon expungement law (ORS 137.225). Generate two complete court-ready documents:
+
+DOCUMENT 1: Motion to Set Aside Conviction (or Arrest) with a proper Oregon Circuit Court caption, numbered paragraphs, and signature block.
+
+DOCUMENT 2: Declaration/Affidavit in Support of Motion to Set Aside, sworn under penalty of perjury, with all required ORS 137.225 attestations, a notary signature block, and space for notary seal.
+
+Petitioner: ${name}
+DOB: ${dob}
+Address: ${addr}
+County: ${county}
+Case No: ${casenum}
+Charge(s): ${charges}
+
+Separate the two documents with a line of 40 dashes. Output ONLY the two documents. No preamble, no explanation.`}]})});
+    const data=await resp.json();
+    const text=data.content?.find(b=>b.type==='text')?.text||'Error generating documents.';
+    S.petition=text; saveState();
+    out.innerHTML=`<div class="petition-box">${text.replace(/</g,'&lt;').replace(/>/g,'&gt;')}</div>`;
+    btns.style.display='flex';
+  }catch(e){
+    out.innerHTML=`<div class="petition-box">Error: ${e.message}\n\nPlease contact support at hello@clearstartoregon.com</div>`;
+    btns.style.display='flex';
+  }
+}
+
+function downloadPDF(){
+  if(!S.petition){alert('Generate your documents first.');return;}
+  try{
+    const {jsPDF}=window.jspdf;
+    const doc=new jsPDF({unit:'in',format:'letter'});
+    doc.setFont('courier','normal'); doc.setFontSize(10.5);
+    const lines=doc.splitTextToSize(S.petition,6.5);
+    let y=1.0;
+    lines.forEach(line=>{if(y>10.0){doc.addPage();y=1.0;}doc.text(line,1.0,y);y+=0.175;});
+    const safeName=(document.getElementById('f-name')?.value||'petition').replace(/[^a-z0-9]/gi,'_');
+    doc.save(`ClearStart_Oregon_${safeName}.pdf`);
+  }catch(e){alert('PDF error: '+e.message);}
+}
+
+function finishProcess(){
+  S.cpDone[6]=true; saveState(); updatePhaseNav();
+  show('s-complete');
+}
+
+// ─── PUBLIC ENTRY POINTS ─────────────────────────────
+window.showHero=showHero;
+window.openAuth=openAuth;
+</script>
+</body>
+</html>
